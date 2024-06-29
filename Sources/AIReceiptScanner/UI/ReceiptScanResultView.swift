@@ -12,7 +12,7 @@ public struct ReceiptScanResultView: View {
     public let applyBottomSheetTrayStyle: Bool
     let utils = Utils.shared
     
-    public init(scanResult: SuccessScanResult, applyBottomSheetTrayStyle: Bool) {
+    public init(scanResult: SuccessScanResult, applyBottomSheetTrayStyle: Bool = false) {
         self.scanResult = scanResult
         self.applyBottomSheetTrayStyle = applyBottomSheetTrayStyle
     }
