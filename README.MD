@@ -63,13 +63,28 @@ If you're not sure just pass gpt-4o models, by default it uses `gpt-4o`
 
 ### Receipt Picker Scanner Menu View (Apple Platform Only)
 
-You can use `ReceiptPickerScannerDefaultMenuView` SwiftUI View to display Menu for users to select image from Photo Library or File Picker. By default, it will shows the selected image and a Text informing the user to select an image 
+You can use `ReceiptPickerScannerDefaultMenuView` SwiftUI View to display Menu for users to select image from Photo Library or File Picker. By default, it will shows the selected image and a Text informing the user to select an image.
+
+Declare a state for scanStatus. This is an enum containing the state such as `pickingImage`, `prompting`, `success` that you observer using `onChange` modifier
 
 ```swift
 @State var scanStatus = .idle
 
 var body: some View {
     ReceiptPickerScannerDefaultMenuView(apiKey: apiKey, scanStatus: $scanStatus)
+    .onChange(of: vm.scanStatus) { _, newValue in
+        switch newValue {
+        case .pickingImage:
+            print("Picking image")
+        case .prompting(let image):
+            print("prompting gpt-4o with receipt image")
+        case .success(let scanResult):
+            print("Success with \(scanResult)")
+        case .failure(let error, let image):
+            print("Error \(error.localizedDescription)")
+        default: break
+        }
+    }
 }
 ```
 
