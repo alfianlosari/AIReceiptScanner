@@ -65,7 +65,7 @@ If you're not sure just pass gpt-4o models, by default it uses `gpt-4o`
 
 You can use `ReceiptPickerScannerDefaultMenuView` SwiftUI View to display Menu for users to select image from Photo Library or File Picker. By default, it will shows the selected image and a Text informing the user to select an image.
 
-Declare a state for scanStatus. This is an enum containing the state such as `pickingImage`, `prompting`, `success` that you observer using `onChange` modifier
+Declare a state for `scanStatus`. This is an `enum` containing the state such as `pickingImage`, `prompting`, `success` that you can observe using `onChange` modifier
 
 You need to add key of `Privacy - Photo Library Usage Description` in `info.plist` when using this
 
