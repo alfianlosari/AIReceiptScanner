@@ -13,9 +13,35 @@ public struct ReceiptPickerScannerDefaultMenuView: View {
     }
     
     public var body: some View {
+        #if os(macOS)
+        VStack {
+            if let image = scanStatus.receiptImage {
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .clipped()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+            
+            ReceiptPickerScannerMenuView(apiKey: apiKey, scanStatus: $scanStatus) {
+                HStack {
+                    Image(systemName: "photo.badge.plus")
+                        .imageScale(.large)
+                        
+                    if scanStatus.receiptImage == nil {
+                        Text("Select Image")
+                    } else {
+                        Text("Select Other Image")
+                    }
+                }
+            }
+       
+        }
+        #else
         ReceiptPickerScannerMenuView(apiKey: apiKey, scanStatus: $scanStatus) {
             DefaultReceiptPickerScannerMenuViewLabel(image: scanStatus.receiptImage)
         }
+        #endif
     }
     
 }

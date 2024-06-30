@@ -10,11 +10,14 @@ public struct ReceiptScanResultView: View {
     
     public let scanResult: SuccessScanResult
     public let applyBottomSheetTrayStyle: Bool
+    var showCopyJSONButton: Bool
+    @State var isCopied = false
     let utils = Utils.shared
     
-    public init(scanResult: SuccessScanResult, applyBottomSheetTrayStyle: Bool = false) {
+    public init(scanResult: SuccessScanResult, applyBottomSheetTrayStyle: Bool = false, showCopyJSONButton: Bool = true) {
         self.scanResult = scanResult
         self.applyBottomSheetTrayStyle = applyBottomSheetTrayStyle
+        self.showCopyJSONButton = showCopyJSONButton
     }
     
     public var body: some View {
@@ -24,8 +27,17 @@ public struct ReceiptScanResultView: View {
     
     private func containerView(receipt: Receipt) -> some View {
         VStack {
+            if showCopyJSONButton {
+                HStack {
+                    Spacer()
+                    copyJSONButton
+                }
+            }
+            
             ScrollView {
+                
                 LazyVStack(alignment: .leading, spacing: 16) {
+                 
                     if let receiptId = receipt.receiptId {
                         infoLine(label: "ID:", value: receiptId)
                     }
@@ -114,6 +126,47 @@ public struct ReceiptScanResultView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .frame(maxWidth: .infinity)
+    }
+    
+    @ViewBuilder
+    var copyJSONButton: some View {
+        if isCopied {
+            HStack {
+                Text("Copied")
+                    .foregroundColor(.white)
+                    .font(.subheadline.monospaced().bold())
+                Image(systemName: "checkmark.circle.fill")
+                    .imageScale(.large)
+                    .symbolRenderingMode(.multicolor)
+            }
+            .frame(alignment: .trailing)
+        } else {
+            Button {
+                let receipt = scanResult.receipt
+                let jsonEncoder = JSONEncoder()
+                jsonEncoder.outputFormatting = .prettyPrinted
+                guard let data = try? jsonEncoder.encode(receipt),
+                      let jsonString = String(data: data, encoding: .utf8)
+                else { return }
+                #if os(macOS)
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString(jsonString, forType: .string)
+                #else
+                UIPasteboard.general.string = jsonString
+                #endif
+                
+                isCopied = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    isCopied = false
+                }
+            } label: {
+                HStack {
+                    Image(systemName: "doc.on.doc")
+                    Text("Copy as JSON")
+                }
+            }
+            .foregroundColor(.white)
+        }
     }
 }
 

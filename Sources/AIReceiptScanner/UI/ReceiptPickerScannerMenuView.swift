@@ -17,15 +17,15 @@ public struct ReceiptPickerScannerMenuView<Label>: View where Label: View {
  
     public var body: some View {
         Menu(content: {
-            Button("Select from Photo Library") {
-                vm.scanStatus = .pickingImage
-                vm.shouldPresentPhotoPicker = true
-            }
-            
-            Button("Select from File Picker") {
+            Button("File") {
                 vm.scanStatus = .pickingImage
                 vm.isPickingFile = true
             }
+            Button("Photos Library") {
+                vm.scanStatus = .pickingImage
+                vm.shouldPresentPhotoPicker = true
+            }
+           
         }, label: label)
         .photosPicker(isPresented: $vm.shouldPresentPhotoPicker, selection: $vm.selectedPhotoPickerItem, matching: .images)
         .fileImporter(
