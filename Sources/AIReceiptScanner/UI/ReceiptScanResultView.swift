@@ -32,6 +32,9 @@ public struct ReceiptScanResultView: View {
                     Spacer()
                     copyJSONButton
                 }
+                #if !os(macOS)
+                .padding()
+                #endif
             }
             
             ScrollView {
@@ -165,7 +168,7 @@ public struct ReceiptScanResultView: View {
                     Text("Copy as JSON")
                 }
             }
-            .foregroundColor(.white)
+            .foregroundStyle(Color.accentColor)
         }
     }
 }
