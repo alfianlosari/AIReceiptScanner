@@ -1,12 +1,14 @@
 # AIReceiptScanner for Swift
 
-![Alt text](https://i.ibb.co.com/Gn4pj1F/Screenshot-2024-06-29-at-14-14-24.png "image")
+![Alt text](https://i.ibb.co.com/ZKhcwPg/Screenshot-2024-06-30-at-11-36-16.png "image")
 
 Scan for items and details in a receipt using ChatGPT
 
 ## Features
-- Receipt Scanner: Scan input of image receipt to output Swift Model containing receipt detail and items purchased.
-- Receipt Scanner UI (Apple Platforms Only) Display the result of receipt scan in SwiftUI List
+- Receipt Scanner - Scan input of image receipt to output Swift Model containing receipt detail and items purchased.
+- Receipt Picker Scanner Menu View (Apple Platforms Only) - Menu Button to select receipt image from photo library/file picker to prompt ChatGPT with 
+- Receipt Scanner Scan Result View (Apple Platforms Only) - Display the result of receipt scan in SwiftUI List with copy as JSON button
+- Receipt Picker Scanner View (Apple Platforms Only) - Combine both Menu and Result View to provide E2E flow to users for picking, scanning, and viewing the result.
 
 ## Supported Platforms
 - iOS 17
@@ -113,5 +115,22 @@ If you're displaying the result in a resizable sheet, you can also pass `applyBo
 ```swift
 var body: some View {
      ReceiptScanResultView(scanResult: scanResult, applyBottomSheetTrayStyle: true)
+}
+```
+### Receipt Picker Scanner View (Apple Platform Only)
+
+This View combines the `ReceiptScanResultView` & `ReceiptPickerScannerMenuView`. Based on the environemtn horizontal size class, it will adjust the layout:
+- `compact`: display the scan result in resizable bottom sheet tray
+- `regular`: display the receipt image and the scan result side-by-side with in an `HStack`
+
+```swift
+@State var scanStatus: ScanStatus = .idle
+
+var body: some View {
+    ReceiptPickerScannerView(apiKey: apiKey, scanStatus: $scanStatus)
+        .navigationTitle("XCA AI Receipt Scanner")
+        .onChange(of: scanStatus) { _, newValue in
+        
+        }
 }
 ```
