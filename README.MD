@@ -67,6 +67,8 @@ You can use `ReceiptPickerScannerDefaultMenuView` SwiftUI View to display Menu f
 
 Declare a state for scanStatus. This is an enum containing the state such as `pickingImage`, `prompting`, `success` that you observer using `onChange` modifier
 
+You need to add key of `Privacy - Photo Library Usage Description` in `info.plist` when using this
+
 ```swift
 @State var scanStatus = .idle
 
