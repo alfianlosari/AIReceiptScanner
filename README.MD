@@ -53,13 +53,13 @@ print(receipt)
 Pass these optional params for customization:
 - `targetSize`: Size used to crop the image, default is 512x512, you should not pass resolution larger than 1024
 - `compressionQuality`: JPG Compression rate used to compress the image before sending to ChatGPT
-- `model` ChatGPTModel enum (gpt-4o, gpt-4turbo, gpt-3.5, etc)
+- `model` ChatGPTModel enum (gpt-4o, or any models that support multi-modal vision)
 - `temperature` Temperature used by ChatGPT for response.
 
 
-Make sure you are in tier that eligible for gpt4 models access. You can learn more from here [How can I access GPT-4, GPT-4 Turbo and GPT-4o?](https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4-gpt-4-turbo-and-gpt-4o). 
+Make sure you are in tier that eligible for gpt-4o models access. You can learn more from here [How can I access GPT-4, GPT-4 Turbo and GPT-4o?](https://help.openai.com/en/articles/7102672-how-can-i-access-gpt-4-gpt-4-turbo-and-gpt-4o). 
 
-If you're not sure just pass gpt-3.5 models, by default it uses `gpt-3.5turbo`
+If you're not sure just pass gpt-4o models, by default it uses `gpt-4o`
 
 ### Receipt Scan Result View (Apple Platform Only)
 

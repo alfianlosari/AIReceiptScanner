@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Receipt: Codable, Identifiable {
+public struct Receipt: Codable, Identifiable, Equatable {
     public let id = UUID()
     
     public var receiptId: String?
@@ -35,7 +35,7 @@ public struct Receipt: Codable, Identifiable {
     }
 }
 
-public struct LineItem: Codable, Identifiable {
+public struct LineItem: Codable, Identifiable, Equatable {
     public let id = UUID()
     public let name: String
     public let price: Double

@@ -57,7 +57,7 @@ Tell me the detail and items in this image receipt. Don't put discount, subtotal
     }
     
     #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-    public func scanImage(_ image: ReceiptImage, targetSize: CGSize = .init(width: 512, height: 512), compressionQuality: CGFloat = 0.5, model: ChatGPTModel = .gpt_hyphen_3_period_5_hyphen_turbo, temperature: Double = 1.0) async throws -> Receipt {
+    public func scanImage(_ image: ReceiptImage, targetSize: CGSize = .init(width: 512, height: 512), compressionQuality: CGFloat = 0.5, model: ChatGPTModel = .gpt_hyphen_4o, temperature: Double = 1.0) async throws -> Receipt {
         let imageData: Data
         #if os(macOS)
         imageData = image.scaleToFit(targetSize: targetSize)!.scaledJPGData(compressionQuality: compressionQuality)!
