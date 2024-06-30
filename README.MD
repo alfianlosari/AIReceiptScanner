@@ -6,7 +6,7 @@ Scan for items and details in a receipt using ChatGPT
 
 ## Features
 - Receipt Scanner - Scan input of image receipt to output Swift Model containing receipt detail and items purchased.
-- Receipt Picker Scanner Menu View (Apple Platforms Only) - Menu Button to select receipt image from photo library/file picker to prompt ChatGPT with 
+- Receipt Picker Scanner Menu View (Apple Platforms Only) - Menu Button to select receipt image from camera/photo library/file picker to prompt ChatGPT with 
 - Receipt Scanner Scan Result View (Apple Platforms Only) - Display the result of receipt scan in SwiftUI List with copy as JSON button
 - Receipt Picker Scanner View (Apple Platforms Only) - Combine both Menu and Result View to provide E2E flow to users for picking, scanning, and viewing the result.
 
@@ -69,7 +69,7 @@ You can use `ReceiptPickerScannerDefaultMenuView` SwiftUI View to display Menu f
 
 Declare a state for `scanStatus`. This is an `enum` containing the state such as `pickingImage`, `prompting`, `success` that you can observe using `onChange` modifier
 
-You need to add key of `Privacy - Photo Library Usage Description` in `info.plist` when using this
+You need to add key of `Privacy - Photo Library Usage Description` & `Privacy - Camera Usage Description` in `info.plist` when using this
 
 ```swift
 @State var scanStatus = .idle

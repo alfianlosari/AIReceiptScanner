@@ -39,12 +39,44 @@ public struct LineItem: Codable, Identifiable, Equatable {
     public let id = UUID()
     public let name: String
     public let price: Double
+    public let category: String
     public let quantity: Double
     
-    public init(name: String, price: Double, quantity: Double) {
+    public init(name: String, price: Double, category: String, quantity: Double) {
         self.name = name
         self.price = price
+        self.category = category
         self.quantity = quantity
     }
 }
 
+enum Category: String, Identifiable, CaseIterable {
+    
+    var id: Self { self }
+    
+    case accountingAndLegalFees = "Accounting and legal fees"
+    case bankFees = "Bank fees"
+    case consultantsAndProfessionalServices = "Consultants and professional services"
+    case depreciation = "Depreciation"
+    case employeeBenefits = "Employee benefits"
+    case employeeExpenses = "Employee expenses"
+    case entertainment = "Entertainment"
+    case food = "Food"
+    case gifts = "Gifts"
+    case health = "Health"
+    case insurance = "Insurance"
+    case interest = "Interest"
+    case learning = "Learning"
+    case licensingFees = "Licensing fees"
+    case marketing = "Marketing"
+    case membershipFees = "Membership fees"
+    case officeSupplies = "Office supplies"
+    case payroll = "Payroll"
+    case repairs = "Repairs"
+    case rent = "Rent"
+    case rentOrMortgagePayments = "Rent or mortgage payments"
+    case software = "Software"
+    case tax = "Tax"
+    case travel = "Travel"
+    case utilities = "Utilities"
+}

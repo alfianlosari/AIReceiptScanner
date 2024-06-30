@@ -136,7 +136,6 @@ public struct ReceiptScanResultView: View {
         if isCopied {
             HStack {
                 Text("Copied")
-                    .foregroundColor(.white)
                     .font(.subheadline.monospaced().bold())
                 Image(systemName: "checkmark.circle.fill")
                     .imageScale(.large)

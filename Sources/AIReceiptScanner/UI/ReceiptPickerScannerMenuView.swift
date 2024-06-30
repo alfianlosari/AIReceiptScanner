@@ -17,6 +17,15 @@ public struct ReceiptPickerScannerMenuView<Label>: View where Label: View {
  
     public var body: some View {
         Menu(content: {
+            #if os(iOS)
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                Button("Camera") {
+                    vm.scanStatus = .pickingImage
+                    vm.isShowingCamera = true
+                }
+            }
+            #endif
+            
             Button("File") {
                 vm.scanStatus = .pickingImage
                 vm.isPickingFile = true
@@ -25,8 +34,14 @@ public struct ReceiptPickerScannerMenuView<Label>: View where Label: View {
                 vm.scanStatus = .pickingImage
                 vm.shouldPresentPhotoPicker = true
             }
+            
            
         }, label: label)
+        #if os(iOS)
+        .sheet(isPresented: $vm.isShowingCamera) {
+            CameraView(isPresented: $vm.isShowingCamera, image: $vm.cameraImage)
+        }
+        #endif
         .photosPicker(isPresented: $vm.shouldPresentPhotoPicker, selection: $vm.selectedPhotoPickerItem, matching: .images)
         .fileImporter(
             isPresented: $vm.isPickingFile,
@@ -58,6 +73,12 @@ public struct ReceiptPickerScannerMenuView<Label>: View where Label: View {
 
         .onChange(of: vm.selectedPhotoPickerItem) { loadInputImage(fromPhotosPickerItem: $1) }
         .onChange(of: vm.scanStatus) { scanStatus = $1 }
+        .onChange(of: vm.cameraImage) { image in
+            DispatchQueue.main.async {
+                self.vm.selectedImage = image
+                Task { await self.vm.scanImage() }
+            }
+        }
     }
     
     func loadInputImage(fromPhotosPickerItem item: PhotosPickerItem?) {

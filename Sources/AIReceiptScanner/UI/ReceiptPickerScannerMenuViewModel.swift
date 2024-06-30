@@ -17,6 +17,8 @@ class ReceiptPickerScannerMenuViewModel {
     var shouldPresentPhotoPicker = false
     var scanStatus: ScanStatus = .idle
     var isPickingFile = false
+    var isShowingCamera = false
+    var cameraImage: ReceiptImage?
     
     public init(apiKey: String) {
         self.receiptScanner = .init(apiKey: apiKey)

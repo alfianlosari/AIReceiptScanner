@@ -33,6 +33,7 @@ Tell me the detail and items in this image receipt. Don't put discount, subtotal
             "name": "name of the item. string type",
             "price": "price of the transaction. number type",
             "quantity": "quantity of item purchased . number type"
+            "category": "enum of \(Category.allCases.map {$0.rawValue}.split(separator: ",")). if not sure, use Utilities as fallback value"
         }
     ]
 }

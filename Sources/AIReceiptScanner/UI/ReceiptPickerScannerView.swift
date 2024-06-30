@@ -73,9 +73,6 @@ public struct ReceiptPickerScannerView: View {
                     .frame(maxWidth: 1024, alignment: .center)
                     
                 }
-                  
-       
-                    
             }
         }
         #if !os(macOS)
@@ -87,7 +84,9 @@ public struct ReceiptPickerScannerView: View {
             self.scanStatus = newValue
             switch newValue {
             case .success(let result):
-                self.scanResultViewItem = result
+                if horizontalSizeClass == .compact {
+                    self.scanResultViewItem = result
+                }
             default:
                 break
             }
