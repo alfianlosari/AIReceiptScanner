@@ -99,6 +99,7 @@ public struct ReceiptScanResultView: View {
                 }
                 .padding()
             }
+            .textSelection(.enabled)
         }
     }
     
