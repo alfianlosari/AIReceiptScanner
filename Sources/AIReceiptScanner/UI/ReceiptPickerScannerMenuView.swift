@@ -1,34 +1,10 @@
-//
-//  ReceiptPickerScannerView.swift
-//
-//  Created by Alfian Losari on 30/06/24.
-//
-
 #if canImport(SwiftUI)
 import PhotosUI
 import SwiftUI
 
-public struct ReceiptPickerScannerDefaultMenuView: View {
-    
-    let apiKey: String
-    @Binding var scanStatus: ScanStatus
-    
-    public init(apiKey: String, scanStatus: Binding<ScanStatus>) {
-        self.apiKey = apiKey
-        self._scanStatus = scanStatus
-    }
-    
-    public var body: some View {
-        ReceiptPickerScannerMenuView(apiKey: apiKey, scanStatus: $scanStatus) {
-            DefaultReceiptPickerScannerMenuViewLabel(image: scanStatus.receiptImage)
-        }
-    }
-    
-}
-
 public struct ReceiptPickerScannerMenuView<Label>: View where Label: View {
     
-    @State var vm: ReceiptPickerScannerViewModel
+    @State var vm: ReceiptPickerScannerMenuViewModel
     @Binding var scanStatus: ScanStatus
 
     var label: () -> Label
@@ -130,3 +106,4 @@ public struct ReceiptPickerScannerMenuView<Label>: View where Label: View {
     }
 }
 #endif
+

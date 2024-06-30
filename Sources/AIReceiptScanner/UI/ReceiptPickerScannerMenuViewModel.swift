@@ -4,13 +4,12 @@
 //
 
 #if canImport(SwiftUI)
-import AIReceiptScanner
 import PhotosUI
 import Observation
 import SwiftUI
 
 @Observable
-class ReceiptPickerScannerViewModel {
+class ReceiptPickerScannerMenuViewModel {
 
     let receiptScanner: AIReceiptScanner
     var selectedImage: ReceiptImage?

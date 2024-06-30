@@ -4,6 +4,7 @@
 
 #if canImport(SwiftUI)
 import SwiftUI
+
 struct DefaultReceiptPickerScannerMenuViewLabel: View {
     
     var image: Image?
