@@ -23,6 +23,7 @@ public struct ReceiptPickerScannerMenuView<Label>: View where Label: View {
             }
             
             Button("Select from File Picker") {
+                vm.scanStatus = .pickingImage
                 vm.isPickingFile = true
             }
         }, label: label)
