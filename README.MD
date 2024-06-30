@@ -61,9 +61,30 @@ Make sure you are in tier that eligible for gpt-4o models access. You can learn 
 
 If you're not sure just pass gpt-4o models, by default it uses `gpt-4o`
 
+### Receipt Picker Scanner Menu View (Apple Platform Only)
+
+You can use `ReceiptPickerScannerDefaultMenuView` SwiftUI View to display Menu for users to select image from Photo Library or File Picker. By default, it will shows the selected image and a Text informing the user to select an image 
+
+```swift
+@State var scanStatus = .idle
+
+var body: some View {
+    ReceiptPickerScannerDefaultMenuView(apiKey: apiKey, scanStatus: $scanStatus)
+}
+```
+
+You can also provide your own Custom Menu label if you prefer to using `ReceiptPickerScannerMenuView`
+```swift
+var body: some View {
+    ReceiptPickerScannerMenuView(apiKey: apiKey, scanStatus: $scanStatus, label: {
+        Text("My Custom Menu View Label")
+    })
+}
+```
+
 ### Receipt Scan Result View (Apple Platform Only)
 
-You can this SwiftUI View to display the result of scanned receipt in a List
+You can use this SwiftUI View to display the result of scanned receipt in a List
 
 ```swift
 var body: some View {
