@@ -20,7 +20,7 @@ struct DefaultReceiptPickerScannerMenuViewLabel: View {
                     .resizable()
                     .scaledToFit()
                     .clipped()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .frame(maxWidth: .infinity, maxHeight: 600)
             }
             
             HStack {

@@ -43,7 +43,7 @@ Register for API key fromx [OpenAI](https://openai.com/api). Initialize with api
 
 ### AI Receipt Scanner
 
-Simply initialize passing the `apiKey` in SwiftUI View
+Simply initialize passing the `apiKey`
 
 ```swift
 let myImage // NSImage/UIImage
@@ -69,7 +69,7 @@ You can use `ReceiptPickerScannerDefaultMenuView` SwiftUI View to display Menu f
 
 Declare a state for `scanStatus`. This is an `enum` containing the state such as `pickingImage`, `prompting`, `success` that you can observe using `onChange` modifier
 
-You need to add key of `Privacy - Photo Library Usage Description` & `Privacy - Camera Usage Description` in `info.plist` when using this
+You need to add key of `Privacy - Photo Library Usage Description` & `Privacy - Camera` Usage Description` in `info.plist` when using this
 
 ```swift
 @State var scanStatus = .idle
@@ -119,7 +119,7 @@ var body: some View {
 ```
 ### Receipt Picker Scanner View (Apple Platform Only)
 
-This View combines the `ReceiptScanResultView` & `ReceiptPickerScannerMenuView`. Based on the environemtn horizontal size class, it will adjust the layout:
+This View combines the `ReceiptScanResultView` & `ReceiptPickerScannerMenuView`. Based on the environment horizontal size class, it will adjust the layout:
 - `compact`: display the scan result in resizable bottom sheet tray
 - `regular`: display the receipt image and the scan result side-by-side with in an `HStack`
 

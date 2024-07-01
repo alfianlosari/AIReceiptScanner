@@ -136,7 +136,7 @@ public struct ReceiptScanResultView: View {
         if isCopied {
             HStack {
                 Text("Copied")
-                    .font(.subheadline.monospaced().bold())
+                    .font(.subheadline.bold())
                 Image(systemName: "checkmark.circle.fill")
                     .imageScale(.large)
                     .symbolRenderingMode(.multicolor)
@@ -179,7 +179,7 @@ fileprivate extension View {
         if shouldApply {
             self
                 .background(.ultraThinMaterial)
-                .presentationDetents([.fraction(0.15), .medium, .large])
+                .presentationDetents([.fraction(0.25), .medium, .large])
                 .presentationDragIndicator(.visible)
                 .onAppear {
                     #if !os(macOS)

@@ -17,7 +17,7 @@ public struct AIReceiptScanner {
     let systemText: String
     let promptText: String =
 """
-Tell me the detail and items in this image receipt. Don't put discount, subtotal, and total, and tax inside items array. Use this JSON format as the response.
+Tell me the detail and items in this image receipt. Don't put discount, subtotal, and total, and tax inside items array.Ignore item with 0 price or quantity. Use this JSON format as the response.
 {
     "receiptId": "receipt id or no. don't return if not exists. string type",
     "merchantName": "name of merchant. don't return if not exits. string type",
