@@ -27,6 +27,8 @@ public struct ReceiptPickerScannerView: View {
                         .frame(minHeight: 80)
                         .padding()
                     
+                    Divider()
+                    
                     if scanStatus.isPrompting {
                         ProgressView("Analyzing Image")
                     }
@@ -47,6 +49,8 @@ public struct ReceiptPickerScannerView: View {
                         ReceiptPickerScannerDefaultMenuView(apiKey: apiKey, scanStatus: $scanStatus)
                             .disabled(scanStatus.isPrompting)
                             .frame(maxWidth: .infinity)
+                        
+                        Divider()
                         
                         Group {
                             if scanStatus.isPrompting {
