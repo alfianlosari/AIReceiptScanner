@@ -13,14 +13,16 @@ public struct ReceiptPickerScannerDefaultMenuView: View {
     }
     
     public var body: some View {
-        #if os(macOS)
+        #if os(macOS) || os(visionOS)
         VStack {
             if let image = scanStatus.receiptImage {
                 image
                     .resizable()
                     .scaledToFit()
                     .clipped()
+                #if os(macOS)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                #endif
             }
             
             ReceiptPickerScannerMenuView(apiKey: apiKey, scanStatus: $scanStatus) {

@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-#if !os(macOS)
+#if os(iOS)
 struct CameraView: UIViewControllerRepresentable {
     @Binding var isPresented: Bool
     @Binding var image: ReceiptImage?

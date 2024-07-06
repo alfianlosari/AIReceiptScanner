@@ -25,23 +25,18 @@ extension UIImage {
         }
         return scaledImage
     }
-    
-    func scaledPNGData() -> Data {
-        let targetSize = CGSize(
-            width: size.width / UIScreen.main.scale,
-            height: size.height / UIScreen.main.scale)
-        
-        let renderer = UIGraphicsImageRenderer(size: targetSize)
-        let resized = renderer.image { _ in
-            self.draw(in: .init(origin: .zero, size: targetSize))
-        }
-        return resized.pngData()!
-    }
-    
+
     func scaledJPGData(compressionQuality: CGFloat = 0.5) -> Data {
+        #if os(visionOS)
+        let targetSize = CGSize(
+            width: size.width / UITraitCollection.current.displayScale,
+            height: size.height / UITraitCollection.current.displayScale)
+        #else
         let targetSize = CGSize(
             width: size.width / UIScreen.main.scale,
             height: size.height / UIScreen.main.scale)
+        #endif
+        
         
         let renderer = UIGraphicsImageRenderer(size: targetSize)
         let resized = renderer.image { _ in
