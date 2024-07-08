@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "AIReceiptScanner",
+    name: "AIReceiptScanner_ForDigent",
     platforms: [
         .iOS(.v17),
         .watchOS(.v9),
@@ -13,15 +13,15 @@ let package = Package(
         .visionOS(.v1)],
     products: [
         .library(
-            name: "AIReceiptScanner",
-            targets: ["AIReceiptScanner"]),
+            name: "AIReceiptScanner_ForDigent",
+            targets: ["AIReceiptScanner_ForDigent"]),
     ],
     dependencies: [
         .package(url: "https://github.com/alfianlosari/ChatGPTSwift.git", from: "2.3.1")
     ],
     targets: [
         .target(
-            name: "AIReceiptScanner",
+            name: "AIReceiptScanner_ForDigent",
             dependencies: [
                 "ChatGPTSwift"
             ]

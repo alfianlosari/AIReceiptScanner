@@ -11,7 +11,7 @@ import SwiftUI
 @Observable
 class ReceiptPickerScannerMenuViewModel {
 
-    let receiptScanner: AIReceiptScanner
+    let receiptScanner: AIReceiptScanner_ForDigent
     var selectedImage: ReceiptImage?
     var selectedPhotoPickerItem: PhotosPickerItem?
     var shouldPresentPhotoPicker = false

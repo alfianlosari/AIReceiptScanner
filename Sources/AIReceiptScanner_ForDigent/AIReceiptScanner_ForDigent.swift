@@ -11,7 +11,7 @@ import CoreGraphics
 import ChatGPTSwift
 import Foundation
 
-public struct AIReceiptScanner {
+public struct AIReceiptScanner_ForDigent {
     
     let api: ChatGPTAPI
     let systemText: String
