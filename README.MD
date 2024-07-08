@@ -2,6 +2,7 @@
 
 ![Alt text](https://i.ibb.co.com/ZKhcwPg/Screenshot-2024-06-30-at-11-36-16.png "image")
 
+For Digent (South Korea Company)
 Scan for items and details in a receipt using ChatGPT
 
 ## Features
