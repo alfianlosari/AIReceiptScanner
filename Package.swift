@@ -17,7 +17,7 @@ let package = Package(
             targets: ["AIReceiptScanner"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/alfianlosari/ChatGPTSwift.git", from: "2.3.1")
+        .package(url: "https://github.com/alfianlosari/ChatGPTSwift.git", from: "2.3.2")
     ],
     targets: [
         .target(
