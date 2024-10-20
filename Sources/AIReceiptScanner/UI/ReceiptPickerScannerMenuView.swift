@@ -10,7 +10,7 @@ public struct ReceiptPickerScannerMenuView<Label>: View where Label: View {
     var label: () -> Label
     
     public init(apiKey: String, scanStatus: Binding<ScanStatus>, @ViewBuilder label: @escaping () -> Label) {
-        self.vm = .init(apiKey: apiKey)
+        self._vm = State(initialValue: ReceiptPickerScannerMenuViewModel(apiKey: apiKey))
         self._scanStatus = scanStatus
         self.label = label
     }
