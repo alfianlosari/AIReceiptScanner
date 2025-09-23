@@ -21,8 +21,8 @@ Carefully analyze this receipt image and extract ALL items with their exact quan
 
 IMPORTANT RULES:
 1. Extract EVERY item shown on the receipt - do not skip any items
-2. Look for quantity indicators like "2 x", "QTY 2", numbers before item names, or weight (kg/lb)
-3. For weighted items (e.g., "2.00 e/kg"), the first number is the quantity in kg
+2. Look for quantity indicators like "2 x", "QTY 2", numbers before item names
+3. For each item line use line total price. For example if there's line "4 bottles - coca-cola - $1/bottle - $4" - you have to use $4 for price. 
 4. Match the exact total amount shown on the receipt
 
 Use this exact JSON format:
@@ -39,7 +39,7 @@ Use this exact JSON format:
     "items": [
         {
             "name": "exact name of the item as shown. string type",
-            "price": "unit price or line total (check receipt format). number type",
+            "price": "line total (NOT UNIT PRICE!). number type",
             "quantity": "exact quantity purchased (look for multipliers, weights, or quantity indicators). number type"
             "category": "enum of \(Category.allCases.map {$0.rawValue}.split(separator: ",")). if not sure, use Utilities as fallback value"
         }
@@ -68,7 +68,7 @@ Double-check: The sum of all items should approximately match the subtotal/total
     }
     
     #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-    public func scanImage(_ image: ReceiptImage, targetSize: CGSize = .init(width: 1024, height: 1024), compressionQuality: CGFloat = 0.8, model: ChatGPTModel = .gpt_hyphen_4_period_1_hyphen_mini, temperature: Double = 1.0) async throws -> Receipt {
+    public func scanImage(_ image: ReceiptImage, targetSize: CGSize = .init(width: 1024, height: 1024), compressionQuality: CGFloat = 0.8, model: ChatGPTModel = .gpt_hyphen_4_period_1_hyphen_mini, temperature: Double = 0.3) async throws -> Receipt {
         let imageData: Data
         #if os(macOS)
         imageData = image.scaleToFit(targetSize: targetSize)!.scaledJPGData(compressionQuality: compressionQuality)!
@@ -79,7 +79,7 @@ Double-check: The sum of all items should approximately match the subtotal/total
     }
     #endif
     
-    public func scanImageData(_ data: Data, model: ChatGPTModel = .gpt_hyphen_4_period_1_hyphen_mini, temperature: Double = 1.0) async throws -> Receipt {
+    public func scanImageData(_ data: Data, model: ChatGPTModel = .gpt_hyphen_4_period_1_hyphen_mini, temperature: Double = 0.3) async throws -> Receipt {
         do {
             let response = try await api.sendMessage(
                 text: promptText,
