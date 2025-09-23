@@ -17,7 +17,15 @@ public struct AIReceiptScanner {
     let systemText: String
     let promptText: String =
 """
-Tell me the detail and items in this image receipt. Don't put discount, subtotal, and total, and tax inside items array.Ignore item with 0 price or quantity. Use this JSON format as the response.
+Carefully analyze this receipt image and extract ALL items with their exact quantities and prices. Follow these instructions precisely:
+
+IMPORTANT RULES:
+1. Extract EVERY item shown on the receipt - do not skip any items
+2. Look for quantity indicators like "2 x", "QTY 2", numbers before item names, or weight (kg/lb)
+3. For weighted items (e.g., "2.00 e/kg"), the first number is the quantity in kg
+4. Match the exact total amount shown on the receipt
+
+Use this exact JSON format:
 {
     "receiptId": "receipt id or no. don't return if not exists. string type",
     "merchantName": "name of merchant. don't return if not exits. string type",
@@ -30,13 +38,15 @@ Tell me the detail and items in this image receipt. Don't put discount, subtotal
     "currency": "currency of the receipt, always use 3 digit country code format"
     "items": [
         {
-            "name": "name of the item. string type",
-            "price": "price of the transaction. number type",
-            "quantity": "quantity of item purchased . number type"
+            "name": "exact name of the item as shown. string type",
+            "price": "unit price or line total (check receipt format). number type",
+            "quantity": "exact quantity purchased (look for multipliers, weights, or quantity indicators). number type"
             "category": "enum of \(Category.allCases.map {$0.rawValue}.split(separator: ",")). if not sure, use Utilities as fallback value"
         }
     ]
 }
+
+Double-check: The sum of all items should approximately match the subtotal/total on the receipt.
 """
     
     let dateFormatterJSONDecoder: JSONDecoder = {
@@ -58,7 +68,7 @@ Tell me the detail and items in this image receipt. Don't put discount, subtotal
     }
     
     #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-    public func scanImage(_ image: ReceiptImage, targetSize: CGSize = .init(width: 512, height: 512), compressionQuality: CGFloat = 0.5, model: ChatGPTModel = .gpt_hyphen_4o, temperature: Double = 1.0) async throws -> Receipt {
+    public func scanImage(_ image: ReceiptImage, targetSize: CGSize = .init(width: 1024, height: 1024), compressionQuality: CGFloat = 0.8, model: ChatGPTModel = .gpt_hyphen_4_period_1_hyphen_mini, temperature: Double = 1.0) async throws -> Receipt {
         let imageData: Data
         #if os(macOS)
         imageData = image.scaleToFit(targetSize: targetSize)!.scaledJPGData(compressionQuality: compressionQuality)!
@@ -69,7 +79,7 @@ Tell me the detail and items in this image receipt. Don't put discount, subtotal
     }
     #endif
     
-    public func scanImageData(_ data: Data, model: ChatGPTModel = .gpt_hyphen_4o, temperature: Double = 1.0) async throws -> Receipt {
+    public func scanImageData(_ data: Data, model: ChatGPTModel = .gpt_hyphen_4_period_1_hyphen_mini, temperature: Double = 1.0) async throws -> Receipt {
         do {
             let response = try await api.sendMessage(
                 text: promptText,
