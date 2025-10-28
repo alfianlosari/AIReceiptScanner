@@ -68,21 +68,21 @@ Double-check: The sum of all items should approximately match the subtotal/total
     }
     
     #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS) || os(visionOS)
-    public func scanImage(_ image: ReceiptImage, targetSize: CGSize = .init(width: 1024, height: 1024), compressionQuality: CGFloat = 0.8, model: ChatGPTModel = .gpt_hyphen_4_period_1_hyphen_mini, temperature: Double = 0.3) async throws -> Receipt {
+    public func scanImage(_ image: ReceiptImage, targetSize: CGSize = .init(width: 1024, height: 1024), compressionQuality: CGFloat = 0.8, model: ChatGPTModel = .gpt_hyphen_4_period_1_hyphen_mini, temperature: Double = 0.3, customPromptText: String? = nil) async throws -> Receipt {
         let imageData: Data
         #if os(macOS)
         imageData = image.scaleToFit(targetSize: targetSize)!.scaledJPGData(compressionQuality: compressionQuality)!
         #else
         imageData = image.scaleToFit(targetSize: targetSize).scaledJPGData(compressionQuality: compressionQuality)
         #endif
-        return try await scanImageData(imageData, model: model, temperature: temperature)
+        return try await scanImageData(imageData, model: model, temperature: temperature, customPromptText: customPromptText)
     }
     #endif
     
-    public func scanImageData(_ data: Data, model: ChatGPTModel = .gpt_hyphen_4_period_1_hyphen_mini, temperature: Double = 0.3) async throws -> Receipt {
+    public func scanImageData(_ data: Data, model: ChatGPTModel = .gpt_hyphen_4_period_1_hyphen_mini, temperature: Double = 0.3, customPromptText: String? = nil) async throws -> Receipt {
         do {
             let response = try await api.sendMessage(
-                text: promptText,
+                text: customPromptText ?? promptText,
                 model: model,
                 systemText: systemText,
                 temperature: temperature,
